@@ -68,8 +68,8 @@ class _HomeState extends State<Home> {
   List<Widget> tabs = [
     QuranTab(),
     SebhaTab(),
-    RadioTab(),
     AhadethTab(),
+    RadioTab(),
     SettingsTab(),
   ];
 }
