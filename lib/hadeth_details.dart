@@ -1,24 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:islamyapp/MyThemeData.dart';
-import 'package:islamyapp/suraModel.dart';
+import 'package:islamyapp/hadethModel.dart';
 
-class SuraDetails extends StatefulWidget {
-  static const String routeName = 'suraDetails';
+import 'MyThemeData.dart';
 
-  @override
-  State<SuraDetails> createState() => _SuraDetailsState();
-}
-
-class _SuraDetailsState extends State<SuraDetails> {
-  List<String> verses = [];
+class HadethDetails extends StatelessWidget {
+  static const String routeName = 'HadethDetails';
 
   @override
   Widget build(BuildContext context) {
-    var args = ModalRoute.of(context)?.settings.arguments as SuraModel;
-    if (verses.isEmpty) {
-      loadFile(args.index);
-    }
+    List<String> verses = [];
+    var args = ModalRoute.of(context)?.settings.arguments as HadethModel;
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -29,8 +20,7 @@ class _SuraDetailsState extends State<SuraDetails> {
       ),
       child: Scaffold(
         appBar: AppBar(
-          title:
-              Text(args.suraName, style: Theme.of(context).textTheme.bodyLarge),
+          title: Text(args.title, style: Theme.of(context).textTheme.bodyLarge),
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -51,25 +41,17 @@ class _SuraDetailsState extends State<SuraDetails> {
                 itemBuilder: (context, index) {
                   return Center(
                       child: Text(
-                    "${verses[index]}(${index + 1})",
+                    "${args.content[index]}",
                     style: Theme.of(context).textTheme.bodySmall,
-                    textDirection: TextDirection.rtl,
                     textAlign: TextAlign.center,
                   ));
                 },
-                itemCount: verses.length,
+                itemCount: args.content.length,
               ),
             ),
           ),
         ),
       ),
     );
-  }
-
-  loadFile(int index) async {
-    String file = await rootBundle.loadString('assets/files/${index + 1}.txt');
-    List<String> lines = file.split("\n");
-    verses = lines;
-    setState(() {});
   }
 }
