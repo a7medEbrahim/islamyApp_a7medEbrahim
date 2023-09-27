@@ -14,12 +14,12 @@ class AhadethTab extends StatelessWidget {
       children: [
         Image.asset('assets/images/ahadeth_image.png'),
         Divider(
-          thickness: 3,
+          thickness: 2,
           color: MyThemeData.primaryColor,
         ),
         Text('Ahadeth'),
         Divider(
-          thickness: 3,
+          thickness: 2,
           color: MyThemeData.primaryColor,
         ),
         Expanded(
