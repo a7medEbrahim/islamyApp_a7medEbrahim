@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:islamyapp/MyThemeData.dart';
 import 'package:islamyapp/hadethModel.dart';
 import 'package:islamyapp/hadeth_details.dart';
-
 class AhadethTab extends StatelessWidget {
   List<HadethModel> allAhadeth = [];
 
@@ -17,7 +17,7 @@ class AhadethTab extends StatelessWidget {
           thickness: 2,
           color: MyThemeData.primaryColor,
         ),
-        Text('Ahadeth'),
+        Text(AppLocalizations.of(context)!.ahadeth),
         Divider(
           thickness: 2,
           color: MyThemeData.primaryColor,

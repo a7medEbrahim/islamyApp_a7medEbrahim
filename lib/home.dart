@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:islamyapp/MyThemeData.dart';
 import 'package:islamyapp/tabs/ahadeth_tab.dart';
 import 'package:islamyapp/tabs/quran_tab.dart';
 import 'package:islamyapp/tabs/radio_tab.dart';
 import 'package:islamyapp/tabs/sebha_tab.dart';
 import 'package:islamyapp/tabs/settings_tab.dart';
-
 class Home extends StatefulWidget {
   static const String routeName = "Home";
 
@@ -28,7 +28,8 @@ class _HomeState extends State<Home> {
         Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-            title: Text('إسلامي', style: Theme.of(context).textTheme.bodyLarge),
+            title: Text(AppLocalizations.of(context)!.appTitle,
+                style: Theme.of(context).textTheme.bodyLarge),
           ),
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: index,
