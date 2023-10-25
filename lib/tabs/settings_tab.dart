@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:islamyapp/MyThemeData.dart';
+import 'package:islamyapp/Providers/myProvider.dart';
+import 'package:provider/provider.dart';
+
+import '../BottomSheets/LanguagesBottomSheet.dart';
+import '../BottomSheets/MoodBottomSheet.dart';
 
 class SettingsTab extends StatefulWidget {
   @override
@@ -9,12 +14,13 @@ class SettingsTab extends StatefulWidget {
 class _SettingsTabState extends State<SettingsTab> {
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<MyProvider>(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Language'),
+          Text(provider.languageCode == "en" ? "Language" : "اللغة"),
           InkWell(
             onTap: () {
               showLanguageBottomSheet();
@@ -26,13 +32,13 @@ class _SettingsTabState extends State<SettingsTab> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25),
                   border: Border.all(color: MyThemeData.primaryColor)),
-              child: Text("English"),
+              child: Text(provider.language),
             ),
           ),
           SizedBox(
             height: 5,
           ),
-          Text('Theming'),
+          Text(provider.languageCode == "en" ? "Mood" : "مود"),
           InkWell(
             onTap: () {
               showThemingBottomSheet();
@@ -44,7 +50,13 @@ class _SettingsTabState extends State<SettingsTab> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25),
                   border: Border.all(color: MyThemeData.primaryColor)),
-              child: Text("Light"),
+              child: Text(provider.mode == ThemeMode.light
+                  ? provider.languageCode == "en"
+                      ? "Light"
+                      : "فاتح"
+                  : provider.languageCode == "en"
+                      ? "Dark"
+                      : "غامق"),
             ),
           ),
         ],
@@ -54,29 +66,22 @@ class _SettingsTabState extends State<SettingsTab> {
 
   showLanguageBottomSheet() {
     showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      shape: OutlineInputBorder(
-          borderSide: BorderSide(color: MyThemeData.primaryColor),
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(12), topRight: Radius.circular(12))),
-      builder: (context) => Container(
-        height: MediaQuery.of(context).size.height * .5,
-      ),
-    );
+        context: context,
+        shape: OutlineInputBorder(
+            borderSide: BorderSide(color: MyThemeData.primaryColor),
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(12), topRight: Radius.circular(12))),
+        builder: (context) => LanguageBottomSheet());
   }
 
   showThemingBottomSheet() {
     showModalBottomSheet(
       context: context,
-      isScrollControlled: true,
       shape: OutlineInputBorder(
           borderSide: BorderSide(color: MyThemeData.primaryColor),
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(12), topRight: Radius.circular(12))),
-      builder: (context) => Container(
-        height: MediaQuery.of(context).size.height * .5,
-      ),
+      builder: (context) => MoodBottomSheet(),
     );
   }
 }

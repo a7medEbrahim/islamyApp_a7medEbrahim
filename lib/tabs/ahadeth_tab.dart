@@ -4,12 +4,20 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:islamyapp/MyThemeData.dart';
 import 'package:islamyapp/hadethModel.dart';
 import 'package:islamyapp/hadeth_details.dart';
-class AhadethTab extends StatelessWidget {
+
+class AhadethTab extends StatefulWidget {
+  @override
+  State<AhadethTab> createState() => _AhadethTabState();
+}
+
+class _AhadethTabState extends State<AhadethTab> {
   List<HadethModel> allAhadeth = [];
 
   @override
   Widget build(BuildContext context) {
-    loadHadeth();
+    if (allAhadeth.isEmpty) {
+      loadHadeth();
+    }
     return Column(
       children: [
         Image.asset('assets/images/ahadeth_image.png'),
@@ -56,22 +64,20 @@ class AhadethTab extends StatelessWidget {
     );
   }
 
-  void loadHadeth() {
-    rootBundle.loadString("assets/files/ahadeth.txt").then((ahadeth) {
-      List<String> ahadethList = ahadeth.split("#");
-      for (int i = 0; i < ahadethList.length; i++) {
-        String hadeth = ahadethList[i];
-        List<String> hadethOneLines = hadeth.trim().split('\n');
-        String title = hadethOneLines[0];
-        hadethOneLines.removeAt(0);
-        List<String> content = hadethOneLines;
-        HadethModel hadethModel = HadethModel(title, content);
-        print(i);
-        print(hadethModel.title);
-        allAhadeth.add(hadethModel);
-      }
-    }).catchError((e) {
-      print(e.toString());
-    });
+  void loadHadeth() async {
+    String ahadeth = await rootBundle.loadString("assets/files/ahadeth.txt");
+    List<String> ahadethList = ahadeth.split("#");
+    for (int i = 0; i < ahadethList.length; i++) {
+      String hadeth = ahadethList[i];
+      List<String> hadethOneLines = hadeth.trim().split('\n');
+      String title = hadethOneLines[0];
+      hadethOneLines.removeAt(0);
+      List<String> content = hadethOneLines;
+      HadethModel hadethModel = HadethModel(title, content);
+      print(i);
+      print(hadethModel.title);
+      allAhadeth.add(hadethModel);
+      setState(() {});
+    }
   }
 }

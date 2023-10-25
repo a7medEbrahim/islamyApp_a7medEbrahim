@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import '../MyThemeData.dart';
@@ -12,6 +14,7 @@ class _SebhaTabState extends State<SebhaTab> {
   int counter = 0;
 
   int index = 0;
+  double aa = 1;
 
   List<String> sebhaContent = [
     'الله اكبر',
@@ -25,7 +28,19 @@ class _SebhaTabState extends State<SebhaTab> {
       width: double.infinity,
       child: Column(
         children: [
-          Image.asset('assets/images/SebhaImage.png'),
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 65),
+                child: Image.asset(
+                  'assets/images/head_of_seb7a.png',
+                ),
+              ),
+              Transform.rotate(
+                  angle: -aa * pi / 16.5,
+                  child: Image.asset('assets/images/body_of_seb7a.png')),
+            ],
+          ),
           SizedBox(
             height: 25,
           ),
@@ -45,9 +60,9 @@ class _SebhaTabState extends State<SebhaTab> {
             ),
             child: Center(
                 child: Text(
-              '$counter',
-              style: Theme.of(context).textTheme.bodyLarge,
-            )),
+                  '$counter',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                )),
           ),
           SizedBox(
             height: 25,
@@ -58,9 +73,10 @@ class _SebhaTabState extends State<SebhaTab> {
                 color: MyThemeData.primaryColor),
             child: Padding(
               padding:
-                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15),
+              const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15),
               child: InkWell(
                 onTap: () {
+                  aa += 1;
                   if (counter == 32) {
                     if (index == sebhaContent.length - 1) {
                       index = 0;
